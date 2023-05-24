@@ -1310,6 +1310,13 @@ static void SetSafetyNetProps() {
     InitPropertySet("ro.boot.verifiedbootstate", "green");
     InitPropertySet("ro.boot.veritymode", "enforcing");
     InitPropertySet("ro.boot.vbmeta.device_state", "locked");
+
+    // Spoof to redfin if we are the GSI image
+    if (android::base::GetProperty("ro.product.product.device", "") == "generic_arm64") {
+        InitPropertySet("ro.product.build.fingerprint", "google/redfin/redfin:13/TQ2A.230505.002/9891397:user/release-keys");
+        InitPropertySet("ro.product.product.device", "redfin");
+        InitPropertySet("ro.product.product.name", "redfin");
+    }
 }
 
 void PropertyInit() {
